@@ -1,1 +1,0 @@
-Colocá aquí tu app.ico (opcional). Si no existe, se compila igual sin ícono.

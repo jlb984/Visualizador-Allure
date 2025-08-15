@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,6 +26,33 @@ namespace AllureViewerPortable
             InitializeComponent();
             _baseDir = baseDir;
             _logFilePath = Path.Combine(_baseDir, "logs", $"{DateTime.Now:yyyyMMdd_HHmmss}.log");
+
+            // Firma del desarrollador (StatusStrip)
+            try
+            {
+                var asm = Assembly.GetExecutingAssembly();
+                var infoVersion = asm.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion
+                         ?? asm.GetName().Version?.ToString();
+                // Separa la cadena en el signo '+' y toma la primera parte.
+                var version = infoVersion.Split('+')[0]; 
+                var exePath = asm.Location;
+                var buildDate = File.Exists(exePath) ? File.GetLastWriteTime(exePath) : DateTime.Now;
+
+                lblFirma.Text = $"Desarrollo Jorge Luis Bergandi — v{version}     — Fecha de ultima actualizacion: {buildDate:yyyy-MM-dd}";
+                lblFirma.Click += (s, e) =>
+                {
+                    try
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = "https://www.linkedin.com/in/jorge-luis-bergandi/",
+                            UseShellExecute = true
+                        });
+                    }
+                    catch { }
+                };
+            }
+            catch { }
         }
 
         private void Log(string msg)
@@ -78,7 +106,7 @@ namespace AllureViewerPortable
 
                 await Task.Run(() => ZipFile.ExtractToDirectory(zipPath, _sessionDir!, overwriteFiles: true));
 
-                // Validación flexible de index.html
+                // index.html en raíz o en la primera carpeta
                 var rootIndex = Path.Combine(_sessionDir!, "index.html");
                 if (File.Exists(rootIndex))
                 {
@@ -124,7 +152,7 @@ namespace AllureViewerPortable
             }
             catch (Exception ex)
             {
-                Log("ERROR: " + ex.ToString()); // Log con stacktrace
+                Log("ERROR: " + ex.ToString());
                 btnGuardarLog.Enabled = true;
                 MessageBox.Show(this,
                     "No se pudo mostrar el reporte.\n\nDetalle:\n" + ex.Message +
@@ -142,11 +170,7 @@ namespace AllureViewerPortable
         private async Task CleanupAsync()
         {
             Log("Deteniendo servidor y limpiando archivos temporales...");
-            try
-            {
-                _cts?.Cancel();
-            }
-            catch { }
+            try { _cts?.Cancel(); } catch { }
 
             if (_server != null)
             {

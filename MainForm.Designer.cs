@@ -121,7 +121,7 @@ namespace AllureViewerPortable
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.Text = "Allure Viewer Portable";
+            this.Text = "Visualizador Allure Portable";
             this.FormClosing += new FormClosingEventHandler(this.MainForm_FormClosing);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

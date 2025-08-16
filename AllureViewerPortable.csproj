@@ -18,6 +18,20 @@
 
     <!-- Evita consola -->
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <!-- Nombre del exe -->
+    <AssemblyName>VisualizadorAllurePortable</AssemblyName>
+
+    <!-- Metadatos visibles en Propiedades del .exe -->
+    <AssemblyTitle>Visualizador Allure Portable</AssemblyTitle>
+    <Product>Visualizador Allure Portable</Product>
+    <Company>Jorge Luis Bergandi</Company>
+    <Description>Visualizador portable para reportes Allure. Contacto: https://www.linkedin.com/in/jorge-luis-bergandi/</Description>
+
+    <!-- Versionado -->
+    <Version>1.0.0</Version>
+    <FileVersion>1.0.0</FileVersion>
+    <InformationalVersion>1.0.0</InformationalVersion>
+
   </PropertyGroup>
 
   <ItemGroup>

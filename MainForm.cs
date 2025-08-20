@@ -45,7 +45,7 @@ namespace AllureViewerPortable
                     {
                         Process.Start(new ProcessStartInfo
                         {
-                            FileName = "https://www.linkedin.com/in/jorge-luis-bergandi/",
+                            FileName = "https://github.com/jlb984/Visualizador-Allure",
                             UseShellExecute = true
                         });
                     }

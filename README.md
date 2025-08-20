@@ -35,7 +35,7 @@ Mini herramienta portable para visualizar reportes Allure empaquetados en `.zip`
 2. Abrir una terminal en la carpeta del proyecto (donde está `AllureViewerPortable.csproj`).
 3. Ejecutar:
    ```powershell
-   dotnet publish -c Release -r win-x64 -p:PublishSingleFile=true -p:SelfContained=true
+   dotnet publish .\AllureViewerPortable.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:SelfContained=true
 
 4. El `.exe` quedará en:
 
